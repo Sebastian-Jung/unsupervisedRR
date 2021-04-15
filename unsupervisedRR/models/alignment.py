@@ -12,6 +12,7 @@ def align(corres, P, Q, align_cfg, return_chamfer=False):
         corres:  Information for K matches (list)
             idx_1   LongTensor(B, K)        match ids in pointcloud P
             idx_2   LongTensor(B, K)        match ids in pointcloud Q
+            weights FloatTensor(B, K)       weights for each correspondace
             dists   FloatTensor(B, K)       match feature cosine distance
         P:          FloatTensor (B, N, 3)   first pointcloud's XYZ
         Q:          FloatTensor (B, N, 3)   second pointcloud's XYZ

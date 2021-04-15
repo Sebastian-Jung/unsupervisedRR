@@ -10,10 +10,11 @@ from tqdm import tqdm
 
 
 def create_scannet_dict(data_root, dict_path, split):
+    scans_folder = "frames_square"
     class_id = "ScanNet"
     data_dict = {}
 
-    scans_root = os.path.join(data_root, split, "scans")
+    scans_root = os.path.join(data_root, split, scans_folder)
     scenes = os.listdir(scans_root)
     data_dict = {class_id: {}}
     for s_id in tqdm(scenes):
@@ -25,9 +26,9 @@ def create_scannet_dict(data_root, dict_path, split):
         data_dict[class_id][s_id] = {"instances": {}}
 
         # get relative paths
-        rgb_rel = os.path.join(split, "scans", s_id, "color")
-        dep_rel = os.path.join(split, "scans", s_id, "depth")
-        ext_rel = os.path.join(split, "scans", s_id, "pose")
+        rgb_rel = os.path.join(split, scans_folder, s_id, "color")
+        dep_rel = os.path.join(split, scans_folder, s_id, "depth")
+        ext_rel = os.path.join(split, scans_folder, s_id, "pose")
 
         # -- Get frames through ext_files --
         rgb_dir = os.path.join(data_root, rgb_rel)
@@ -35,7 +36,7 @@ def create_scannet_dict(data_root, dict_path, split):
 
         # -- get intrisnics --
         int_path = os.path.join(
-            data_root, split, "scans", s_id, "intrinsic/intrinsic_color.txt"
+            data_root, split, scans_folder, s_id, "intrinsic_depth.txt"
         )
         int_mat = np.loadtxt(int_path)
         inst_dict = {}
