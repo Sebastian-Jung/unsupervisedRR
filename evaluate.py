@@ -27,14 +27,16 @@ np.random.seed(seed)
 random.seed(seed)
 
 # Set path for where to save the output dictionaries
-RESULTS_DIR = None
+RESULTS_DIR = "results"
 
 
 def evaluate_split(model, data_loader, args, dict_name=None, use_tqdm=True):
     all_metrics = {}
     all_outputs = {}
 
-    for batch in tqdm(data_loader, disable=not use_tqdm, dynamic_ncols=True):
+    for i, batch in enumerate(
+        tqdm(data_loader, disable=not use_tqdm, dynamic_ncols=True)
+    ):
         batch_output, batch_metrics = forward_batch(model, batch)
         for metric in batch_metrics:
             b_metric = batch_metrics[metric].detach().cpu()
@@ -44,12 +46,18 @@ def evaluate_split(model, data_loader, args, dict_name=None, use_tqdm=True):
                 all_metrics[metric] = b_metric
 
         instances = batch_metrics["instance_id"]
-        for ins in instances:
-            all_outputs[ins] = {"Rt": batch_output["vp_1"].detach().cpu()}
-            if "corres_01" in batch_output:
-                _corres = batch_output["corres_01"]
-                _corres = [_c.detach().cpu() for _c in _corres]
-                all_outputs[ins]["corres"] = _corres
+        for n, ins in enumerate(instances):
+            all_outputs[ins] = {
+                k: batch_output[k][n].detach().cpu()
+                for k in batch_output.keys()
+                if k != "corres_01"
+            }
+            all_outputs[ins]["sequence_id"] = batch["sequence_id"][n]
+            all_outputs[ins]["uid"] = batch["uid"][n]
+            _, _, f_ids = data_loader.dataset.instances[batch["uid"][n]]
+            all_outputs[ins]["f_ids"] = f_ids
+        if i == 4:
+            break
 
     # Save outputs
     if dict_name is not None:

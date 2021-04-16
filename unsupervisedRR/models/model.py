@@ -96,6 +96,7 @@ class PCReg(nn.Module):
         ]
         pcs_X = pcs_X[0:1] + pcs_X_rot
         output["joint_pointcloud"] = torch.cat(pcs_X, dim=1).detach().cpu()
+        output["sep_pointcloud"] = [x.detach().cpu() for x in pcs_X]
 
         # Get RGB pointcloud as well for direct rendering
         pcs_rgb = [rgb.view(B, 3, -1).permute(0, 2, 1).contiguous() for rgb in rgbs]
