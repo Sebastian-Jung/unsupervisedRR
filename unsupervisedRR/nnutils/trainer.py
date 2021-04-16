@@ -52,7 +52,8 @@ class BasicTrainer(BaseEngine):
             self.valid_loader = build_loader(cfg.DATASET, split="train", overfit=1)
         else:
             self.train_loader = build_loader(cfg.DATASET, split="train")
-            self.valid_loader = build_loader(cfg.DATASET, split="valid")
+            self.valid_loader = build_loader(cfg.DATASET, split="train")  # DEBUG
+            # self.valid_loader = build_loader(cfg.DATASET, split="valid")
 
         # get a single instance; just for debugging purposes
         self.train_loader.dataset.__getitem__(0)
@@ -297,6 +298,8 @@ class BasicTrainer(BaseEngine):
                 none_grad(self.model)
                 self.validate()
                 self.model.train()
+            if self.step % 1000 == 0:
+                self.save_checkpoint()
 
             # reset timer
             before_load = time.time()

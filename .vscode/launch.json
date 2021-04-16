@@ -21,3 +21,17 @@
         }
     ]
 }
+/*
+            "args": [
+                "train_single",
+                "full_train.yaml"
+            ]
+            "args": [
+                "mine",
+                "--checkpoint=unsupervisedRR/models/pretrained_weights/unsuprr_scannet.pkl",
+                "--split=train",
+                "--progress_bar",
+                "--boost_alignment",
+                "--save_dict=output_dict.pkl",
+            ]
+*/

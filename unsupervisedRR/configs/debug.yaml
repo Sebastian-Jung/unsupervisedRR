@@ -3,7 +3,10 @@ MODEL:
     name: "PCReg"
 TRAIN:
     num_epochs: 1
+    eval_step: 9999999
 DATASET:
     name: "ScanNet"
+    overfit: True
 EXPERIMENT:
     name: "Debug Config"
+    

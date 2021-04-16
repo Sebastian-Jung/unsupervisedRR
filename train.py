@@ -4,8 +4,8 @@ import shutil
 
 import torch
 
-from .configs import get_cfg_defaults
-from .nnutils.pcreg_trainer import PCReg_Trainer
+from unsupervisedRR.configs import get_cfg_defaults
+from unsupervisedRR.nnutils.pcreg_trainer import PCReg_Trainer
 
 if __name__ == "__main__":
     # general parameters

@@ -1,0 +1,12 @@
+# Just a simple config file for testing
+MODEL:
+    name: "PCReg"
+TRAIN:
+    num_epochs: 5
+    eval_step: 9999999
+DATASET:
+    name: "ScanNet"
+    view_spacing: 1
+EXPERIMENT:
+    name: "Full Training view spacing 1"
+    checkpoint: unsupervisedRR/models/pretrained_weights/unsuprr_scannet.pkl

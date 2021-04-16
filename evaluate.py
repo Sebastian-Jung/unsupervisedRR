@@ -57,7 +57,7 @@ def evaluate_split(model, data_loader, args, dict_name=None, use_tqdm=True):
             all_outputs[ins]["uid"] = batch["uid"][n]
             _, _, f_ids = data_loader.dataset.instances[batch["uid"][n]]
             all_outputs[ins]["f_ids"] = f_ids
-        if i == 4:
+        if i == 3000:
             break
 
     # Save outputs
