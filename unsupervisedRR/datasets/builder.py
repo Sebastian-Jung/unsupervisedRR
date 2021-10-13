@@ -9,6 +9,8 @@ from .video_dataset import VideoDataset
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
 RGBD_3D_ROOT = None  # -- You need to define those --
 SCANNET_ROOT = r"/home_local/jung_se/ScanNet/data"  # -- You need to define those --
+BOP_ROOT = r"/home_local/jung_se/ScanNet/bop_data"
+YCBV_ROOT = r"/home_local/jung_se/ScanNet/ycbv_data"
 
 
 def build_dataset(cfg, split, overfit=None):
@@ -23,6 +25,12 @@ def build_dataset(cfg, split, overfit=None):
     elif cfg.name == "RGBD_3DMatch":
         root_path = RGBD_3D_ROOT
         dict_path = os.path.join(PROJECT_ROOT, f"data/3dmatch_{split}.pkl")
+    elif cfg.name == "BOP":
+        root_path = BOP_ROOT
+        dict_path = os.path.join(PROJECT_ROOT, f"data/bop_{split}.pkl")
+    elif cfg.name == "YCBV":
+        root_path = YCBV_ROOT
+        dict_path = os.path.join(PROJECT_ROOT, f"data/ycbv_{split}.pkl")
     else:
         raise ValueError("Dataset name {} not recognized.".format(cfg.name))
 

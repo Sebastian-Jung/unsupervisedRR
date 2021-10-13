@@ -200,6 +200,7 @@ if __name__ == "__main__":
     parser.add_argument("--checkpoint", type=str, default=None)
     parser.add_argument("--dataset", type=str, default="ScanNet")
     parser.add_argument("--split", type=str, default="test")
+    parser.add_argument("--view_spacing", type=int, default=20)
     parser.add_argument("--boost_alignment", default=False, action="store_true")
     parser.add_argument("--save_dict", type=str, default=None)
     parser.add_argument("--progress_bar", default=False, action="store_true")
@@ -216,6 +217,7 @@ if __name__ == "__main__":
     dataset_cfg = default_cfg.DATASET
     dataset_cfg.name = args.dataset
     dataset_cfg.batch_size = 4
+    dataset_cfg.view_spacing = args.view_spacing
     data_loader = build_loader(dataset_cfg, split=args.split)
 
     # Define model

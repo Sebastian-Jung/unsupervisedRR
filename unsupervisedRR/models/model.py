@@ -96,7 +96,10 @@ class PCReg(nn.Module):
         ]
         pcs_X = pcs_X[0:1] + pcs_X_rot
         output["joint_pointcloud"] = torch.cat(pcs_X, dim=1).detach().cpu()
-        output["sep_pointcloud"] = [x.detach().cpu() for x in pcs_X]
+        output["sep_pointcloud_0"] = pcs_X[0].detach().cpu()
+        output["sep_pointcloud_1"] = pcs_X[1].detach().cpu()
+        output["sep_pointcloud_feat_0"] = pcs_F[0].detach().cpu()
+        output["sep_pointcloud_feat_1"] = pcs_F[1].detach().cpu()
 
         # Get RGB pointcloud as well for direct rendering
         pcs_rgb = [rgb.view(B, 3, -1).permute(0, 2, 1).contiguous() for rgb in rgbs]
